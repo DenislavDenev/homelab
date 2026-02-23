@@ -1,0 +1,133 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+- Jelly:
+    - Jellyfin:
+        icon: jellyfin.png
+        href: http://192.168.1.51:8096
+        siteMonitor: http://192.168.1.51:8096
+        container: jellyfin
+        description: Multimedia streaming library
+        widget:
+            type: jellyfin
+            url: http://192.168.1.51:8096/
+            key: "{{HOMEPAGE_VAR_JELLYFIN_API}}" # define in secrets.env or replace with your API
+            enableBlocks: true 
+            enableNowPlaying: false
+            enableUser: false
+            showEpisodeNumber: true 
+            expandOneStreamToTwoRows: false
+            fields: ["movies", "series"]
+
+    - Jellyseerr:
+        icon: jellyseerr.png
+        href: http://192.168.1.51:5055
+        siteMonitor: http://192.168.1.51:5055
+        container: jellyseerr
+        description: Request new library media
+        widget:
+            type: jellyseerr
+            url: http://192.168.1.51:5055
+            key: "{{HOMEPAGE_VAR_JELLYSEER_API}}" # define in secrets.env or replace with your API
+            fields: ["pending", "approved", "available"]
+
+- Media Management:
+    - Radarr:
+        icon: radarr.png
+        href: http://192.168.1.51:7878
+        siteMonitor: http://192.168.1.51:7878
+        container: radarr
+        description: Automate downloading movies
+        widget:
+            type: radarr
+            url: http://192.168.1.51:7878
+            key: "{{HOMEPAGE_VAR_RADARR_API}}" # define in secrets.env or replace with your API
+            fields: ["wanted", "queued", "movies"]     
+
+    - Sonarr:
+        icon: sonarr.png
+        href: http://192.168.1.51:8989
+        siteMonitor: http://192.168.1.51:8989
+        container: sonarr
+        description: Automate downloading series
+        widget:
+            type: sonarr
+            url: http://192.168.1.51:8989
+            key: "{{HOMEPAGE_VAR_SONARR_API}}" # define in secrets.env or replace with your API
+            fields: ["wanted", "queued", "series"]
+
+    - Bazarr:
+        icon: bazarr.png
+        href: http://192.168.1.51:6767
+        siteMonitor: http://192.168.1.51:6767
+        container: bazarr
+        description: Media subtitles management
+        widget:
+            type: bazarr
+            url: http://192.168.1.51:6767
+            key: "{{HOMEPAGE_VAR_BAZARR_API}}" # define in secrets.env or replace with your API
+            fields: ["missingEpisodes", "missingMovies"]
+
+- Indexing:
+    - Prowlarr:
+        icon: prowlarr.png
+        href: http://192.168.1.51:9696
+        siteMonitor: http://192.168.1.51:9696
+        container: prowlarr
+        description: Indexer integration for downloads
+        widget:
+            type: prowlarr
+            url: http://192.168.1.51:9696
+            key: "{{HOMEPAGE_VAR_PROWLARR_API}}" # define in secrets.env or replace with your API
+            fields: ["numberOfGrabs", "numberOfQueries"]
+
+    - Qbittorrent:
+        icon: qbittorrent.png
+        href: http://192.168.1.51:8080
+        siteMonitor: http://192.168.1.51:8080
+        container: qbittorrent
+        description: Bittorrent client 
+        widget:
+          type: qbittorrent
+          url: http://192.168.1.51:8080
+          username: "{{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}" # define in secrets.env or replace with your API
+          password: "{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}" # define in secrets.env or replace with your API
+          enableLeechProgress: true
+          enableLeechSize: true
+          fields: ["leech", "download", "seed", "upload"] 
+
+########################################################################################################################################################################################################
+
+- Cloud Services:
+    - Vaultwarden:
+        icon: vaultwarden.png
+        href: https://192.168.1.55:8000/#/vault
+        siteMonitor: https://192.168.1.55:8000
+        container: vaultwarden
+        description: Password management
+
+########################################################################################################################################################################################################
+
+- Release Calendar:
+  - ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ LEGEND:⠀⠀🟢Series ⠀⠀🔵Movie:
+          href: http://192.168.1.51:8096
+          widget:
+              type: calendar
+              firstDayInWeek: monday
+              view: monthly
+              maxEvents: 10
+              showTime: true
+              timezone: Europe/Sofia
+              integrations:
+                - type: sonarr
+                  service_group: Media Management
+                  service_name: Sonarr
+                  color: green
+                  params:
+                    unmonitored: false
+                - type: radarr
+                  service_group: Media Management
+                  service_name: Radarr
+                  color: blue
+                  params:
+                    unmonitored: false

@@ -1,5 +1,6 @@
 secrets.yaml
 secrets.yml
+secrets.env
 .env
 *.key
 *.pem
