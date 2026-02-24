@@ -1,12 +1,9 @@
----
-# For configuration options and examples, please see:
-# https://gethomepage.dev/configs/services/
 - Jelly:
     - Jellyfin:
         icon: jellyfin.png
         href: http://192.168.1.51:8096
         siteMonitor: http://192.168.1.51:8096
-        container: jellyfin
+        statusStyle: dot
         description: Multimedia streaming library
         widget:
             type: jellyfin
@@ -23,7 +20,7 @@
         icon: jellyseerr.png
         href: http://192.168.1.51:5055
         siteMonitor: http://192.168.1.51:5055
-        container: jellyseerr
+        statusStyle: dot
         description: Request new library media
         widget:
             type: jellyseerr
@@ -36,7 +33,7 @@
         icon: radarr.png
         href: http://192.168.1.51:7878
         siteMonitor: http://192.168.1.51:7878
-        container: radarr
+        statusStyle: dot
         description: Automate downloading movies
         widget:
             type: radarr
@@ -48,7 +45,7 @@
         icon: sonarr.png
         href: http://192.168.1.51:8989
         siteMonitor: http://192.168.1.51:8989
-        container: sonarr
+        statusStyle: dot
         description: Automate downloading series
         widget:
             type: sonarr
@@ -60,7 +57,7 @@
         icon: bazarr.png
         href: http://192.168.1.51:6767
         siteMonitor: http://192.168.1.51:6767
-        container: bazarr
+        statusStyle: dot
         description: Media subtitles management
         widget:
             type: bazarr
@@ -68,12 +65,11 @@
             key: "{{HOMEPAGE_VAR_BAZARR_API}}" # define in secrets.env or replace with your API
             fields: ["missingEpisodes", "missingMovies"]
 
-- Indexing:
     - Prowlarr:
         icon: prowlarr.png
         href: http://192.168.1.51:9696
         siteMonitor: http://192.168.1.51:9696
-        container: prowlarr
+        statusStyle: dot
         description: Indexer integration for downloads
         widget:
             type: prowlarr
@@ -85,27 +81,101 @@
         icon: qbittorrent.png
         href: http://192.168.1.51:8080
         siteMonitor: http://192.168.1.51:8080
-        container: qbittorrent
+        statusStyle: dot
         description: Bittorrent client 
         widget:
           type: qbittorrent
           url: http://192.168.1.51:8080
-          username: "{{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}" # define in secrets.env or replace with your API
-          password: "{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}" # define in secrets.env or replace with your API
+          username: "{{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}" # define in secrets.env or replace with your USERNAME
+          password: "{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}" # define in secrets.env or replace with your PASSWORD
           enableLeechProgress: true
           enableLeechSize: true
           fields: ["leech", "download", "seed", "upload"] 
 
-########################################################################################################################################################################################################
+- Tools:
+    - Proxmox:
+        icon: proxmox.png
+        href: https://192.168.1.17:8006
+        siteMonitor: https://192.168.1.17:8006
+        statusStyle: dot
+        widget:
+            type: proxmox
+            url: https://192.168.1.17:8006
+            username: api@pam!homepage
+            password: {{HOMEPAGE_VAR_PROXMOX_API}} # define in secrets.env or replace with your token secret
+            #node: proxmox
+            fields: ["vms", "lxc", "resources.cpu", "resources.mem"]
+    - PiHole:
+        icon: pi-hole.png
+        href: http://192.168.1.52/admin/
+        siteMonitor: http://192.168.1.52
+        statusStyle: dot
+        description: Network-wide ad blocker
+        widget:
+            type: pihole
+            url: http://192.168.1.52
+            version: 6 # required if running v6 or higher, defaults to 5
+            key: "{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}" # optional, in v6 can be your password or app password -  define in secrets.env or replace with your API/PASS
+            fields: ["queries", "blocked", "blocked_percent", "gravity"]
 
-- Cloud Services:
     - Vaultwarden:
         icon: vaultwarden.png
         href: https://192.168.1.55:8000/#/vault
         siteMonitor: https://192.168.1.55:8000
-        container: vaultwarden
+        statusStyle: dot
         description: Password management
+########################################################################################################################################################################################################
 
+- VPN:
+    - Tailscale - HomeAssistant:
+        icon: tailscale.png
+        href: https://login.tailscale.com/admin/machines
+        widget:
+          type: tailscale
+          url: https://api.tailscale.com
+          deviceid: "{{HOMEPAGE_VAR_TAILSCALE_HOMEASSISTANT}}" # define in secrets.env or replace with your deviceID
+          key: "{{HOMEPAGE_VAR_TAILSCALE_API}}" # define in secrets.env or replace with your API
+          fields: ["address", "last_seen", "expires"]
+
+    - Tailscale - Servarr:
+        icon: tailscale.png
+        href: https://login.tailscale.com/admin/machines
+        widget:
+          type: tailscale
+          url: https://api.tailscale.com
+          deviceid: "{{HOMEPAGE_VAR_TAILSCALE_SERVARR}}" # define in secrets.env or replace with your deviceID
+          key: "{{HOMEPAGE_VAR_TAILSCALE_API}}" # define in secrets.env or replace with your API
+          fields: ["address", "last_seen", "expires"]
+
+    - Tailscale - PiHole:
+        icon: tailscale.png
+        href: https://login.tailscale.com/admin/machines
+        widget:
+          type: tailscale
+          url: https://api.tailscale.com
+          deviceid: "{{HOMEPAGE_VAR_TAILSCALE_PIHOLE}}" # define in secrets.env or replace with your deviceID
+          key: "{{HOMEPAGE_VAR_TAILSCALE_API}}" # define in secrets.env or replace with your API
+          fields: ["address", "last_seen", "expires"]
+
+    - Tailscale - iPhone:
+        icon: tailscale.png
+        href: https://login.tailscale.com/admin/machines
+        widget:
+          type: tailscale
+          url: https://api.tailscale.com
+          deviceid: "{{HOMEPAGE_VAR_TAILSCALE_IPHONE}}" # define in secrets.env or replace with your deviceID
+          key: "{{HOMEPAGE_VAR_TAILSCALE_API}}" # define in secrets.env or replace with your API
+          fields: ["address", "last_seen", "expires"]
+
+    - Tailscale - PC:
+        icon: tailscale.png
+        href: https://login.tailscale.com/admin/machines
+        widget:
+          type: tailscale
+          url: https://api.tailscale.com
+          deviceid: "{{HOMEPAGE_VAR_TAILSCALE_PC}}" # define in secrets.env or replace with your deviceID
+          key: "{{HOMEPAGE_VAR_TAILSCALE_API}}" # define in secrets.env or replace with your API
+          fields: ["address", "last_seen", "expires"]
 ########################################################################################################################################################################################################
 
 - Release Calendar:

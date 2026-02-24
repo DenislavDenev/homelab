@@ -1,0 +1,11 @@
+
+/* Hide elements with _hidden prefix */
+[data-name^="_hidden"] .service-title,
+.bookmark-group .bookmark-group-name {
+  display: none;
+}
+
+/* Hide footer completely */
+#footer {
+  display: none;
+}

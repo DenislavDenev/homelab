@@ -2,17 +2,17 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/bookmarks
 
-- Developer:
-    - Github:
-        - abbr: GH
-          href: https://github.com/
+- _hidden1:
+    - Helper-Scripts:
+        - abbr: HS
+          href: https://community-scripts.github.io/ProxmoxVE/
 
-- Social:
-    - Reddit:
-        - abbr: RE
-          href: https://reddit.com/
+- _hidden2:
+    - Homepage:
+        - abbr: HP
+          href: https://gethomepage.dev
 
-- Entertainment:
-    - YouTube:
-        - abbr: YT
-          href: https://youtube.com/
+- _hidden3:
+    - Router:
+        - abbr: R
+          href: http://192.168.1.1
