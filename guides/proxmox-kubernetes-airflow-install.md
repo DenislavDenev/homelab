@@ -29,7 +29,7 @@ All scripts, paths, structure, and automation examples are based on what works i
 
 # Prerequisites
 
-- Proxmox VM running Ubuntu 22.04 or 24.04.
+- Proxmox VM running Ubuntu 22.04 or 24.04 (Recomended: OpenSSH enabled, 32G Disk, 4G Ram, 2 CPU Cores - Give your system some breathing room. Everything can be adjusted post install)
 - Logged in as a user with sudo privileges.
 - VM has internet access.
 
@@ -131,16 +131,23 @@ This command:
 
 # 5. Verify Cluster
 
-Check that the k3s service is running:
+k3s writes its kubeconfig to `/etc/rancher/k3s/k3s.yaml` with root-only permissions by default.
+This step makes it readable by your user and sets the `KUBECONFIG` environment variable permanently,
+so both `kubectl` and `helm` can reach the cluster without `sudo`.
+```bash
+sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+echo "export KUBECONFIG=/etc/rancher/k3s/k3s.yaml" >> ~/.bashrc
+source ~/.bashrc
+```
 
+Check that the k3s service is running:
 ```bash
 sudo systemctl status k3s
 ```
 
 Check node readiness:
-
 ```bash
-sudo kubectl get nodes
+kubectl get nodes
 ```
 
 Expected output:
@@ -219,7 +226,13 @@ You should see a StorageClass like `local-path`. :contentReference[oaicite:3]{in
 
 Create a minimal `values.yaml` for a small homelab install using **KubernetesExecutor** (tasks run as pods).
 
-Generate keys first:
+Make sure pip3 and cryptography are installed:
+
+```bash
+sudo apt install python3-pip python3-cryptography -y
+```
+
+Generate keys:
 
 ```bash
 FERNET_KEY="$(python3 - <<'PY'
@@ -363,6 +376,27 @@ Watch pods come up:
 
 ```bash
 kubectl get pods -n airflow -w
+```
+
+Lastly:
+
+```bash
+kubectl patch svc airflow-api-server -n airflow -p '{"spec": {"type": "NodePort", "ports": [{"port": 8080, "targetPort": 8080, "nodePort": 30080}]}}'
+```
+
+Optionally
+
+The default credentials are `admin` / `admin` and should be changed immediately.
+
+Log in to the Airflow UI at `http://<your-vm-ip>:30080`, then navigate to:
+
+**Top right corner → Admin → Users → Edit (pencil icon next to admin)**
+
+Set a new password and save.
+
+Alternatively, via the command line:
+```bash
+kubectl exec -it deployment/airflow-api-server -n airflow -- airflow users reset-password -u admin
 ```
 
 ---
