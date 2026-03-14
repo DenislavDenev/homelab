@@ -121,7 +121,7 @@ services:
       - servarrnetwork
 
   maintainerr:
-    image: ghcr.io/maintainerr/maintainerr:jellyfin-dev
+    image: ghcr.io/maintainerr/maintainerr:latest
     container_name: maintainerr
     restart: unless-stopped
     environment:
