@@ -12,14 +12,14 @@ My personal homelab dashboard built with [gethomepage.dev](https://gethomepage.d
 
 | Category | Services |
 |---|---|
-| Infrastructure | Proxmox, Immich |
-| Media | Jellyfin, Jellyseerr |
-| Media Management | Radarr, Sonarr, Bazarr, Maintainerr |
+| Infrastructure | Proxmox |
+| Media | Jellyfin, Immich |
+| Media Management | Radarr, Sonarr, Bazarr, Maintainerr, Jellyseerr |
 | Downloads | qBittorrent, Prowlarr |
-| Network | PiHole, Nginx Proxy Manager, Vaultwarden |
+| Network | PiHole, Nginx Proxy Manager |
 | VPN | Tailscale (5 nodes) |
 | Automation | Airflow, Home Assistant |
-| Misc | Cloudflare, Homelab Repo, Personal Site |
+| Misc | Cloudflare, Homelab Repo, Personal Site, Vaultwarden |
 
 
 ## Files
