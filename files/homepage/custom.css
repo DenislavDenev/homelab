@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
+
 
 /* Hide elements with _hidden prefix */
 [data-name^="_hidden"] .service-title,
@@ -8,4 +10,14 @@
 /* Hide footer completely */
 #footer {
   display: none;
+}
+
+/* Adjust Spacing */
+#information-widgets { margin-bottom: 0.25rem; }
+.services-group { margin-bottom: 0.25rem; }
+
+/* Custom Font for Header */
+#information-widgets * {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-weight: 400;
 }
