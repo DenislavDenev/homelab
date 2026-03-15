@@ -5,6 +5,9 @@ My personal homelab dashboard built with [gethomepage.dev](https://gethomepage.d
 ![Homepage Preview](preview.png)
 
 
+> [!IMPORTANT]
+> Tailscale and Proxmox API temporarily removed prior to taking the screenshot for privacy reasons. The setup in services.yaml is correct.
+
 ## Stack
 
 | Category | Services |
