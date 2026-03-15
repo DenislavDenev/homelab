@@ -2,17 +2,17 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/bookmarks
 
-- _hidden1:
-    - Helper-Scripts:
-        - abbr: HS
-          href: https://community-scripts.github.io/ProxmoxVE/
-
-- _hidden2:
-    - Homepage:
-        - abbr: HP
-          href: https://gethomepage.dev
-
-- _hidden3:
-    - Router:
-        - abbr: R
-          href: http://192.168.1.1
+#- _hidden1:
+#    - Helper-Scripts:
+#        - abbr: HS
+#          href: https://community-scripts.github.io/ProxmoxVE/
+#
+#- _hidden2:
+#    - Homepage:
+#        - abbr: HP
+#          href: https://gethomepage.dev
+#
+#- _hidden3:
+#    - Router:
+#        - abbr: R
+#          href: http://192.168.1.1
