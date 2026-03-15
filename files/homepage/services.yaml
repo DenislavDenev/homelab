@@ -1,203 +1,328 @@
-- Jelly:
+- Infrastructure:
+    - Proxmox:
+        icon: proxmox.png
+        href: "## your proxmox ip:port"
+        siteMonitor: "## your proxmox ip:port"
+        statusStyle: dot
+        description: Hypervisor
+        widget:
+            type: proxmox
+            url: "## your proxmox ip:port"
+            username: "## your proxmox api user"
+            password: "## your proxmox api token"
+            fields: ["vms", "lxc", "resources.cpu", "resources.mem"]
+
+- Media:
+    - Immich:
+        icon: immich.png
+        href: "## your immich domain"
+        siteMonitor: "## your immich domain"
+        statusStyle: dot
+        description: Photo backup & management
+        widget:
+            type: immich
+            url: "## your immich domain"
+            key: "## your immich api key"
+            version: 2
+            fields: ["users", "photos", "videos", "storage"]
+
     - Jellyfin:
         icon: jellyfin.png
-        href: http://192.168.1.51:8096
-        siteMonitor: http://192.168.1.51:8096
+        href: "## your jellyfin domain"
+        siteMonitor: "## your jellyfin domain"
         statusStyle: dot
         description: Multimedia streaming library
         widget:
             type: jellyfin
-            url: http://192.168.1.51:8096/
-            key: "{{HOMEPAGE_VAR_JELLYFIN_API}}" # define in secrets.env or replace with your API
-            enableBlocks: true 
+            url: "## your jellyfin domain"
+            key: "## your jellyfin api key"
+            enableBlocks: true
             enableNowPlaying: false
             enableUser: false
-            showEpisodeNumber: true 
+            showEpisodeNumber: true
             expandOneStreamToTwoRows: false
             fields: ["movies", "series"]
-
-    - Jellyseerr:
-        icon: jellyseerr.png
-        href: http://192.168.1.51:5055
-        siteMonitor: http://192.168.1.51:5055
-        statusStyle: dot
-        description: Request new library media
-        widget:
-            type: jellyseerr
-            url: http://192.168.1.51:5055
-            key: "{{HOMEPAGE_VAR_JELLYSEER_API}}" # define in secrets.env or replace with your API
-            fields: ["pending", "approved", "available"]
 
 - Media Management:
     - Radarr:
         icon: radarr.png
-        href: http://192.168.1.51:7878
-        siteMonitor: http://192.168.1.51:7878
+        href: "## your radarr domain"
+        siteMonitor: "## your radarr domain"
         statusStyle: dot
         description: Automate downloading movies
         widget:
             type: radarr
-            url: http://192.168.1.51:7878
-            key: "{{HOMEPAGE_VAR_RADARR_API}}" # define in secrets.env or replace with your API
-            fields: ["wanted", "queued", "movies"]     
+            url: "## your radarr domain"
+            key: "## your radarr api key"
+            fields: ["wanted", "queued", "movies"]
 
     - Sonarr:
         icon: sonarr.png
-        href: http://192.168.1.51:8989
-        siteMonitor: http://192.168.1.51:8989
+        href: "## your sonarr domain"
+        siteMonitor: "## your sonarr domain"
         statusStyle: dot
         description: Automate downloading series
         widget:
             type: sonarr
-            url: http://192.168.1.51:8989
-            key: "{{HOMEPAGE_VAR_SONARR_API}}" # define in secrets.env or replace with your API
+            url: "## your sonarr domain"
+            key: "## your sonarr api key"
             fields: ["wanted", "queued", "series"]
 
     - Bazarr:
         icon: bazarr.png
-        href: http://192.168.1.51:6767
-        siteMonitor: http://192.168.1.51:6767
+        href: "## your bazarr domain"
+        siteMonitor: "## your bazarr domain"
         statusStyle: dot
-        description: Media subtitles management
+        description: Subtitle management
         widget:
             type: bazarr
-            url: http://192.168.1.51:6767
-            key: "{{HOMEPAGE_VAR_BAZARR_API}}" # define in secrets.env or replace with your API
+            url: "## your bazarr domain"
+            key: "## your bazarr api key"
             fields: ["missingEpisodes", "missingMovies"]
+
+- No Widget Services:
+    - Maintainerr:
+        icon: maintainerr.png
+        href: "## your maintainerr domain"
+        siteMonitor: "## your maintainerr domain"
+        statusStyle: dot
+        description: Media library cleanup rules
+
+    - Vaultwarden:
+        icon: vaultwarden.png
+        href: "## your vaultwarden domain"
+        siteMonitor: "## your vaultwarden domain"
+        statusStyle: dot
+        description: Password management
+
+- Downloads:
+    - Jellyseerr:
+        icon: jellyseerr.png
+        href: "## your jellyseerr domain"
+        siteMonitor: "## your jellyseerr domain"
+        statusStyle: dot
+        description: Request new library media
+        widget:
+            type: jellyseerr
+            url: "## your jellyseerr domain"
+            key: "## your jellyseerr api key"
+            fields: ["pending", "approved", "available"]
+
+    - qBittorrent:
+        icon: qbittorrent.png
+        href: "## your qbittorrent domain"
+        siteMonitor: "## your qbittorrent domain"
+        statusStyle: dot
+        description: BitTorrent client
+        widget:
+            type: qbittorrent
+            url: "## your qbittorrent ip:port"
+            username: "## your qbittorrent username"
+            password: "## your qbittorrent password"
+            enableLeechProgress: true
+            enableLeechSize: true
+            fields: ["leech", "download", "seed", "upload"]
 
     - Prowlarr:
         icon: prowlarr.png
-        href: http://192.168.1.51:9696
-        siteMonitor: http://192.168.1.51:9696
+        href: "## your prowlarr domain"
+        siteMonitor: "## your prowlarr domain"
         statusStyle: dot
         description: Indexer integration for downloads
         widget:
             type: prowlarr
-            url: http://192.168.1.51:9696
-            key: "{{HOMEPAGE_VAR_PROWLARR_API}}" # define in secrets.env or replace with your API
+            url: "## your prowlarr domain"
+            key: "## your prowlarr api key"
             fields: ["numberOfGrabs", "numberOfQueries"]
 
-    - Qbittorrent:
-        icon: qbittorrent.png
-        href: http://192.168.1.51:8080
-        siteMonitor: http://192.168.1.51:8080
-        statusStyle: dot
-        description: Bittorrent client 
-        widget:
-          type: qbittorrent
-          url: http://192.168.1.51:8080
-          username: "{{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}" # define in secrets.env or replace with your USERNAME
-          password: "{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}" # define in secrets.env or replace with your PASSWORD
-          enableLeechProgress: true
-          enableLeechSize: true
-          fields: ["leech", "download", "seed", "upload"] 
-
-- Tools:
-    - Proxmox:
-        icon: proxmox.png
-        href: https://192.168.1.17:8006
-        siteMonitor: https://192.168.1.17:8006
-        statusStyle: dot
-        widget:
-            type: proxmox
-            url: https://192.168.1.17:8006
-            username: api@pam!homepage
-            password: {{HOMEPAGE_VAR_PROXMOX_API}} # define in secrets.env or replace with your token secret
-            #node: proxmox
-            fields: ["vms", "lxc", "resources.cpu", "resources.mem"]
+- Network:
     - PiHole:
         icon: pi-hole.png
-        href: http://192.168.1.52/admin/
-        siteMonitor: http://192.168.1.52
+        href: "## your pihole ip/admin/"
+        siteMonitor: "## your pihole ip"
         statusStyle: dot
         description: Network-wide ad blocker
         widget:
             type: pihole
-            url: http://192.168.1.52
-            version: 6 # required if running v6 or higher, defaults to 5
-            key: "{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}" # optional, in v6 can be your password or app password -  define in secrets.env or replace with your API/PASS
+            url: "## your pihole ip"
+            version: 6
+            key: "## your pihole api key or password"
             fields: ["queries", "blocked", "blocked_percent", "gravity"]
 
-    - Vaultwarden:
-        icon: vaultwarden.png
-        href: https://192.168.1.55:8000/#/vault
-        siteMonitor: https://192.168.1.55:8000
+    - Nginx Proxy Manager:
+        icon: nginx-proxy-manager.png
+        href: "## your npm ip:port"
+        siteMonitor: "## your npm ip:port"
         statusStyle: dot
-        description: Password management
-########################################################################################################################################################################################################
+        description: Reverse proxy management
+        widget:
+            type: npm
+            url: "## your npm ip:port"
+            username: "## your npm login email"
+            password: "## your npm password"
+            fields: ["enabled", "disabled", "total"]
 
 - VPN:
-    - Tailscale - HomeAssistant:
+    - Tailscale — HomeAssistant:
         icon: tailscale.png
         href: https://login.tailscale.com/admin/machines
+        statusStyle: dot
+        description: HomeAssistant node
         widget:
-          type: tailscale
-          url: https://api.tailscale.com
-          deviceid: "{{HOMEPAGE_VAR_TAILSCALE_HOMEASSISTANT}}" # define in secrets.env or replace with your deviceID
-          key: "{{HOMEPAGE_VAR_TAILSCALE_API}}" # define in secrets.env or replace with your API
-          fields: ["address", "last_seen", "expires"]
+            type: tailscale
+            url: https://api.tailscale.com
+            deviceid: "## your tailscale homeassistant device id"
+            key: "## your tailscale api key"
+            fields: ["address", "last_seen", "expires"]
 
-    - Tailscale - Servarr:
+    - Tailscale — Servarr:
         icon: tailscale.png
         href: https://login.tailscale.com/admin/machines
+        statusStyle: dot
+        description: Servarr node
         widget:
-          type: tailscale
-          url: https://api.tailscale.com
-          deviceid: "{{HOMEPAGE_VAR_TAILSCALE_SERVARR}}" # define in secrets.env or replace with your deviceID
-          key: "{{HOMEPAGE_VAR_TAILSCALE_API}}" # define in secrets.env or replace with your API
-          fields: ["address", "last_seen", "expires"]
+            type: tailscale
+            url: https://api.tailscale.com
+            deviceid: "## your tailscale servarr device id"
+            key: "## your tailscale api key"
+            fields: ["address", "last_seen", "expires"]
 
-    - Tailscale - PiHole:
+    - Tailscale — PiHole:
         icon: tailscale.png
         href: https://login.tailscale.com/admin/machines
+        statusStyle: dot
+        description: PiHole node
         widget:
-          type: tailscale
-          url: https://api.tailscale.com
-          deviceid: "{{HOMEPAGE_VAR_TAILSCALE_PIHOLE}}" # define in secrets.env or replace with your deviceID
-          key: "{{HOMEPAGE_VAR_TAILSCALE_API}}" # define in secrets.env or replace with your API
-          fields: ["address", "last_seen", "expires"]
+            type: tailscale
+            url: https://api.tailscale.com
+            deviceid: "## your tailscale pihole device id"
+            key: "## your tailscale api key"
+            fields: ["address", "last_seen", "expires"]
 
-    - Tailscale - iPhone:
+    - Tailscale — iPhone:
         icon: tailscale.png
         href: https://login.tailscale.com/admin/machines
+        statusStyle: dot
+        description: iPhone node
         widget:
-          type: tailscale
-          url: https://api.tailscale.com
-          deviceid: "{{HOMEPAGE_VAR_TAILSCALE_IPHONE}}" # define in secrets.env or replace with your deviceID
-          key: "{{HOMEPAGE_VAR_TAILSCALE_API}}" # define in secrets.env or replace with your API
-          fields: ["address", "last_seen", "expires"]
+            type: tailscale
+            url: https://api.tailscale.com
+            deviceid: "## your tailscale iphone device id"
+            key: "## your tailscale api key"
+            fields: ["address", "last_seen", "expires"]
 
-    - Tailscale - PC:
+    - Tailscale — PC:
         icon: tailscale.png
         href: https://login.tailscale.com/admin/machines
+        statusStyle: dot
+        description: PC node
         widget:
-          type: tailscale
-          url: https://api.tailscale.com
-          deviceid: "{{HOMEPAGE_VAR_TAILSCALE_PC}}" # define in secrets.env or replace with your deviceID
-          key: "{{HOMEPAGE_VAR_TAILSCALE_API}}" # define in secrets.env or replace with your API
-          fields: ["address", "last_seen", "expires"]
-########################################################################################################################################################################################################
+            type: tailscale
+            url: https://api.tailscale.com
+            deviceid: "## your tailscale pc device id"
+            key: "## your tailscale api key"
+            fields: ["address", "last_seen", "expires"]
+
+- Misc:
+    - Helper Scripts:
+        icon: https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/logo.png
+        href: https://community-scripts.org/scripts
+        siteMonitor: https://community-scripts.org
+        statusStyle: dot
+        description: Proxmox VE helper scripts
+
+    - Homepage:
+        icon: homepage.png
+        href: https://gethomepage.dev
+        siteMonitor: https://gethomepage.dev
+        statusStyle: dot
+        description: Dashboard documentation
+
+    - Airflow:
+        icon: apache-airflow.png
+        href: "## your airflow domain"
+        siteMonitor: "## your airflow domain"
+        statusStyle: dot
+        description: Workflow orchestration
+
+    - denev.work:
+        icon: mdi-web
+        href: "## your personal site"
+        siteMonitor: "## your personal site"
+        statusStyle: dot
+        description: Personal Portfolio Website
+
+    - Router:
+        icon: router.png
+        href: "## your router ip"
+        siteMonitor: "## your router ip"
+        statusStyle: dot
+        description: "## your router model"
+
+    - Cloudflare:
+        icon: cloudflare.png
+        href: https://dash.cloudflare.com
+        siteMonitor: https://dash.cloudflare.com
+        statusStyle: dot
+        description: DNS & tunnel management
+
+    - Homelab Repo:
+        icon: github.png
+        href: "## your github repo url"
+        siteMonitor: https://github.com
+        statusStyle: dot
+        description: GitHub homelab repository
+
+    - Home Assistant:
+        icon: home-assistant.png
+        href: "## your home assistant domain"
+        siteMonitor: "## your home assistant domain"
+        statusStyle: dot
+        description: Home automation
 
 - Release Calendar:
-  - ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ LEGEND:⠀⠀🟢Series ⠀⠀🔵Movie:
-          href: http://192.168.1.51:8096
+    - ⠀                      LEGEND:⠀⠀🟢 Series⠀⠀🔵 Movie:
+          href: "## your jellyfin url"
           widget:
               type: calendar
               firstDayInWeek: monday
               view: monthly
               maxEvents: 10
               showTime: true
-              timezone: Europe/Sofia
+              timezone: "## your timezone"
               integrations:
                 - type: sonarr
                   service_group: Media Management
                   service_name: Sonarr
                   color: green
                   params:
-                    unmonitored: false
+                      unmonitored: false
                 - type: radarr
                   service_group: Media Management
                   service_name: Radarr
                   color: blue
                   params:
-                    unmonitored: false
+                      unmonitored: false
+
+    - Agenda:
+          href: "## your jellyfin url"
+          widget:
+              type: calendar
+              firstDayInWeek: monday
+              view: agenda
+              maxEvents: 10
+              showTime: true
+              timezone: "## your timezone"
+              integrations:
+                - type: sonarr
+                  service_group: Media Management
+                  service_name: Sonarr
+                  color: green
+                  params:
+                      unmonitored: false
+                - type: radarr
+                  service_group: Media Management
+                  service_name: Radarr
+                  color: blue
+                  params:
+                      unmonitored: false
