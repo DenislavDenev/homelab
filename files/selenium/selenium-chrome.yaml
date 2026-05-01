@@ -27,10 +27,10 @@ spec:
               value: "-Xmx256m"     # cap the Grid JVM heap to avoid surprise RAM use
           resources:
             requests:
-              memory: "512Mi"
+              memory: "1Gi"
               cpu: "250m"
             limits:
-              memory: "2Gi"         # hard ceiling — k8s OOM-kills Chrome before it takes the node
+              memory: "4Gi"         # hard ceiling — k8s OOM-kills Chrome before it takes the node
               cpu: "1500m"
           livenessProbe:
             httpGet:
