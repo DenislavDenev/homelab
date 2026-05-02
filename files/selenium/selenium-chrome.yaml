@@ -30,7 +30,7 @@ spec:
               memory: "512Mi"
               cpu: "250m"
             limits:
-              memory: "2Gi"         # hard ceiling — k8s OOM-kills Chrome before it takes the node
+              memory: "3Gi"         # hard ceiling — k8s OOM-kills Chrome before it takes the node
               cpu: "1500m"
           livenessProbe:
             httpGet:
