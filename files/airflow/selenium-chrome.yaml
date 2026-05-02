@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selenium-chrome
+  namespace: airflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selenium-chrome
+  template:
+    metadata:
+      labels:
+        app: selenium-chrome
+    spec:
+      containers:
+        - name: selenium-chrome
+          image: selenium/standalone-chrome:latest
+          ports:
+            - containerPort: 4444
+          env:
+            - name: SE_NODE_MAX_SESSIONS
+              value: "2"            # matches SCRAPER_WORKERS in the DAG
+            - name: SE_NODE_SESSION_TIMEOUT
+              value: "600"
+            - name: SE_JAVA_OPTS
+              value: "-Xmx256m"     # cap the Grid JVM heap to avoid surprise RAM use
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "3Gi"         # hard ceiling — k8s OOM-kills Chrome before it takes the node
+              cpu: "1500m"
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: 4444
+            initialDelaySeconds: 30
+            periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: selenium-chrome
+  namespace: airflow
+spec:
+  selector:
+    app: selenium-chrome
+  ports:
+    - port: 4444
+      targetPort: 4444
