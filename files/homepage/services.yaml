@@ -231,12 +231,12 @@
         statusStyle: dot
         description: Proxmox VE helper scripts
 
-    - Homepage:
-        icon: homepage.png
-        href: https://gethomepage.dev
-        siteMonitor: https://gethomepage.dev
+    - Romm:
+        icon: romm.png
+        href: "## your romm domain"
+        siteMonitor: "## your romm domain"
         statusStyle: dot
-        description: Dashboard documentation
+        description: Game library manager
 
     - Airflow:
         icon: apache-airflow.png
